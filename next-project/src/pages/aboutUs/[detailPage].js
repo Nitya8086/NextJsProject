@@ -1,5 +1,6 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const details = [
   {
@@ -29,12 +30,14 @@ const DetailPage = () => {
   console.log("nitya", detailName);
 
   return (
-    <div>
+    <Fragment>
       <h1>About Us</h1>
 
       {detailName ? (
         <div>
-          <p>Name: {detailName.name}</p>
+          <Link href={`/aboutUs/${detailName.id}`}>
+            <p>Name: {detailName.name}</p>
+          </Link>
           <p>Role: {detailName.role}</p>
         </div>
       ) : (
@@ -49,7 +52,7 @@ const DetailPage = () => {
           </li>
         ))}
       </ul> */}
-    </div>
+    </Fragment>
   );
 };
 
