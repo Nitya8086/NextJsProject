@@ -14,7 +14,7 @@ const AboutPage = () => {
     return (
       <div key={member.id}>
         <Link href={`aboutUs/${member.id}`}>
-          <h1>{member.name}</h1>
+          <h1>Name : {member.name}</h1>
         </Link>
       </div>
     );
