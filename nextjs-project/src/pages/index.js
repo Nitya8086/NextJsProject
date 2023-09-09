@@ -1,34 +1,51 @@
 import React from "react";
+import { MongoClient } from "mongodb";
 import MeetupList from "../components/meetups/MeetupList";
 
-const DUMMY_MEETUPS = [
-  {
-    id: "m1",
-    title: "A ffirst meetup",
-    image:
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fphoto&psig=AOvVaw3cc7qAecGvRWwQUhBspTAW&ust=1694159503920000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCJC1nuKCmIEDFQAAAAAdAAAAABAE",
-    address: "Some address 5, some city ",
-    description: "This is a first meetup",
-  },
-  {
-    id: "m2",
-    title: "A second meetup",
-    image:
-      "https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fphoto&psig=AOvVaw3cc7qAecGvRWwQUhBspTAW&ust=1694159503920000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCJC1nuKCmIEDFQAAAAAdAAAAABAE",
-    address: "Some address 5, some city ",
-    description: "This is a second meetup",
-  },
-  {
-    id: "m3",
-    title: "A third meetup",
-    image:
-      "https://www.google.com/search?sca_esv=563328209&sxsrf=AB5stBj5jN-WViU_p-P30xxN8GCec6wdMw:1694073098733&q=photos&tbm=isch&source=lnms&sa=X&ved=2ahUKEwiv3ZeKgpiBAxW2QfUHHZWCAvIQ0pQJegQICxAB&biw=1366&bih=651&dpr=1#imgrc=qcYtHxBEwYRUGM",
-    address: "Some address 5, some city ",
-    description: "This is a third meetup",
-  },
-];
-const HomePage = () => {
-  return <MeetupList meetups={DUMMY_MEETUPS} />;
+const HomePage = (props) => {
+  // const [loadedMeetups, setLoadedMeetups] = useState([]);
+
+  // useEffect(() => {
+  //   //send a http rewuest and fetch data
+  //   setLoadedMeetups(DUMMY_MEETUPS);
+  // }, []);
+  return <MeetupList meetups={props.meetups} />;
 };
+
+// export async function getServerSideProps(context) {
+//   const req = context.req;
+//   const res = context.res;
+//   // fetch data from an API
+//   return {
+//     props: {
+//       meetups: DUMMY_MEETUPS,
+//     },
+//   };
+// }
+export async function getStaticProps() {
+  // fetch data from an API
+  const client = await MongoClient.connect(
+    "mongodb+srv://nityapatel:Root@cluster0.axnsdsy.mongodb.net/meetups?retryWrites=true&w=majority"
+  );
+  const db = client.db();
+
+  const meetupsCollection = db.collection("meetups");
+
+  const meetups = await meetupsCollection.find().toArray();
+
+  client.close();
+  return {
+    props: {
+      meetups: meetups.map((meetup) => ({
+        title: meetup.title,
+        address: meetup.address,
+        image: meetup.image,
+        description: meetup.description,
+        id: meetup._id.toString(),
+      })),
+    },
+    revalidate: 1,
+  };
+}
 
 export default HomePage;
