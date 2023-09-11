@@ -1,0 +1,40 @@
+.Card_card__Y6veD {
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  margin: 1rem 0;
+  margin-bottom: 4rem;
+}
+.TodoList_control__A2xpa {
+  margin: 1rem;
+}
+.TodoList_table__i4q5p {
+  border-collapse: collapse;
+  margin: 1rem;
+  width: 90%;
+  overflow: auto;
+  margin-bottom: 4rem;
+}
+.TodoList_tr__5V8_R {
+  padding: 10px;
+  text-align: left;
+}
+.TodoList_td__JovpP {
+  padding: 12px;
+  text-align: left;
+  margin-bottom: 4rem;
+  font-size: 2rem;
+}
+.todoostyle {
+  display: block;
+  font-size: 4em;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+.checkbox {
+  size: 5px;
+  appearance: auto;
+}
