@@ -3,6 +3,7 @@
 import React from "react";
 import NewMeetupForm from "../../components/meetups/NewMeetupForm";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const NewMeetUpPage = () => {
   const router = useRouter();

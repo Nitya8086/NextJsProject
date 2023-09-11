@@ -5,12 +5,18 @@ import MeetupDetail from "../../components/meetups/MeetupDetail";
 const MeetupDetails = () => {
   const router = useRouter(props);
   return (
-    <MeetupDetail
-      image={props.meetupData.image}
-      title={props.meetupData.title}
-      address={props.meetupData.address}
-      description={props.meetupData.description}
-    />
+    <>
+      <Head>
+        <title>{props.meetupData.title}</title>
+        <meta name="description" content={props.meetupData.description} />
+      </Head>
+      <MeetupDetail
+        image={props.meetupData.image}
+        title={props.meetupData.title}
+        address={props.meetupData.address}
+        description={props.meetupData.description}
+      />
+    </>
   );
 };
 export async function getStaticPaths() {
@@ -26,7 +32,7 @@ export async function getStaticPaths() {
     fallback: false,
     paths: meetups.map((meetup) => ({
       params: {
-        meetupId: meetup._id.toString,
+        meetupId: meetup._id.toString(),
       },
     })),
   };
@@ -43,6 +49,7 @@ export async function getStaticProps(context) {
   const selectedMeetup = await meetupsCollection.findOne({
     _id: ObjectId(meetupId),
   });
+
   client.close();
   console.log(meetupId);
   return {

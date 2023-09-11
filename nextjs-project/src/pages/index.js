@@ -11,17 +11,18 @@ const HomePage = (props) => {
   //   //send a http rewuest and fetch data
   //   setLoadedMeetups(DUMMY_MEETUPS);
   // }, []);
-  return;
-  <Fragment>
-    <Head>
-      <title>React Meetups</title>
-      <meta
-        name="description"
-        content="Browse a huge  list of   highly React meetup !"
-      />
-    </Head>
-    <MeetupList meetups={props.meetups} />;
-  </Fragment>;
+  return (
+    <Fragment>
+      <Head>
+        <title>React Meetups</title>
+        <meta
+          name="description"
+          content="Browse a huge  list of   highly React meetup !"
+        />
+      </Head>
+      <MeetupList meetups={props.meetups} />;
+    </Fragment>
+  );
 };
 
 // export async function getServerSideProps(context) {
