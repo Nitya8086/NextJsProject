@@ -19,7 +19,18 @@ const NewMeetUpPage = () => {
     console.log(data);
     router.push("/");
   };
-  return <NewMeetupForm onAddMeetup={addMeetupHandeler} />;
+  return (
+    <>
+      <Head>
+        <title>Add a new Meetups</title>
+        <meta
+          name="description"
+          content="Add your own meetups  and create  amazing networking oppoturnities!"
+        />
+      </Head>
+      <NewMeetupForm onAddMeetup={addMeetupHandeler} />
+    </>
+  );
 };
 
 export default NewMeetUpPage;

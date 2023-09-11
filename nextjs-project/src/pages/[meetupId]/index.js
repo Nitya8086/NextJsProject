@@ -1,15 +1,15 @@
 import { useRouter } from "next/router";
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import MeetupDetail from "../../components/meetups/MeetupDetail";
 
 const MeetupDetails = () => {
-  const router = useRouter();
+  const router = useRouter(props);
   return (
     <MeetupDetail
-      image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrVeYVkodHl4CG9TEpPrTl8dqxFxcVjes6tbubEoe5C-kfYIlXiYTkSJo_6fZ12mkyH4I&usqp=CAU"
-      title=" First meetup"
-      address="Some address some  address"
-      description="This is a frist meetup"
+      image={props.meetupData.image}
+      title={props.meetupData.title}
+      address={props.meetupData.address}
+      description={props.meetupData.description}
     />
   );
 };
@@ -39,13 +39,20 @@ export async function getStaticProps(context) {
   );
   const db = client.db();
 
-  const selectedMeetup = db.collection("meetups");
-  const meetups = await meetupsCollection.findOne({ _id: meetupId });
+  const meetupsCollection = db.collection("meetups");
+  const selectedMeetup = await meetupsCollection.findOne({
+    _id: ObjectId(meetupId),
+  });
   client.close();
   console.log(meetupId);
   return {
     props: {
-      meetupData: selectedMeetup,
+      meetupData: {
+        id: selectedMeetup._id.toString(),
+        title: selectedMeetup.title,
+        address: selectedMeetup.address,
+        description: selectedMeetup.description,
+      },
     },
   };
 }
